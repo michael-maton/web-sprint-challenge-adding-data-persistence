@@ -7,9 +7,16 @@ module.exports = {
 }
 
 function find() {
-
+    return db("resources")
 }
 
-function addResource(resource) {
-
+async function addResource(resource) {
+    const returnArr = await db("resources")
+        .insert(resource)
+        .then((id) => {
+            return db("resources")
+                .where("resource_id", id)
+                .select("resource_name")
+        })
+    return returnArr[0];
 }
